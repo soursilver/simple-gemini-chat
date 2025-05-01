@@ -3,6 +3,17 @@
   import { GoogleGenAI } from "@google/genai";
   import { onMount, tick } from "svelte";
 
+  // --- Markdown Rendering Setup ---
+  import markdownit from 'markdown-it';
+  import highlightjs from 'markdown-it-highlightjs'; // Correct import name
+
+  // Initialize markdown-it instance once
+  const md = markdownit({
+      html: true,        // Enable HTML tags in source
+      linkify: true,     // Autoconvert URL-like text to links
+      typographer: true  // Enable some language-neutral replacement + quotes beautification
+  }).use(highlightjs); // Use the highlight.js plugin
+
   // --- Props ---
   // Use bind:messages in App.svelte to allow two-way binding
   export let messages = [];
@@ -282,7 +293,7 @@
           <div class="chat-bubble chat-bubble-neutral overflow-hidden table-fixed">
             <div class="prose prose-sm max-w-none text-white-content">
               {#if message.content}
-              <pre class="whitespace-pre-wrap font-sans break-words max-w-full">{message.content}</pre>
+              {@html md.render(message.content)}
               {:else if isLoading && i === messages.length - 1}
                 <span class="loading loading-dots loading-sm"></span>
               {/if}
@@ -451,7 +462,7 @@
 </div>
 
 <style>
-  /* ... (styles remain the same) ... */
+  /* ... (styles remain the same) ... 
   .prose pre {
     background-color: transparent;
     padding: 0;
@@ -460,11 +471,43 @@
     font-family: inherit;
     overflow-x: auto;
     font-size: 0.9em;
-  }
+  } */
   .prose p {
-    margin: 0;
+      margin-bottom: 0.5em; /* Add back some margin for paragraphs if needed */
+      margin-top: 0.5em;
   }
+  .prose p:first-child {
+      margin-top: 0;
+  }
+   .prose p:last-child {
+      margin-bottom: 0;
+  }
+
+  /* Ensure code blocks within prose respect chat bubble background */
+  :global(.prose code) {
+      color: inherit; /* Inherit color */
+      background-color: rgba(0, 0, 0, 0.1); /* Subtle background for inline code */
+      padding: 0.1em 0.3em;
+      border-radius: 0.25em;
+      font-size: 0.9em;
+  }
+  :global(.prose pre) {
+      color: inherit; /* Inherit text color */
+      background-color: rgba(0, 0, 0, 0.15) !important; /* Slightly darker background for code blocks */
+      padding: 0.75em !important;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      border-radius: 0.375rem; /* Equivalent to rounded-md */
+      overflow-x: auto; /* Allow horizontal scrolling */
+  }
+  :global(.prose pre code) {
+      background-color: transparent !important; /* Code inside pre shouldn't have its own background */
+      padding: 0 !important;
+      font-size: inherit !important; /* Use pre's font size */
+      color: inherit !important; /* Use pre's text color (highlight.js will override) */
+  }
+
   .flex-grow {
-    min-height: 0;
+      min-height: 0;
   }
 </style>

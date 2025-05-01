@@ -3,6 +3,8 @@
   import { onMount } from 'svelte';
   import Chat from './components/Chat.svelte'; // Adjust path if needed
   import ChatHistory from './components/ChatHistory.svelte'; // Adjust path if needed
+  // Import highlight.js CSS theme (adjust path/theme as needed)
+  import 'highlight.js/styles/atom-one-dark.css';
 
   const CHAT_HISTORY_KEY = 'geminiChatHistory';
   const ACTIVE_CHAT_ID_KEY = 'geminiActiveChatId';
