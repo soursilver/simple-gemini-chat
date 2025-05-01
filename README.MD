@@ -6,6 +6,8 @@ This is a simple, web-based chat application built with Svelte, Vite, and DaisyU
 
 The primary goal of this app is to provide a clean, functional example for developers looking to quickly get up and running with the Gemini API in a modern web framework. It showcases handling API keys, selecting models, managing chat history locally, and rendering streamed AI responses in real-time.
 
+![App Screenshot](./public/assets/simple-gemini-chat-soursilver.png)
+
 ## Features
 
 *   **Real-time Chat Interface:** Clean and responsive chat UI built with DaisyUI components.

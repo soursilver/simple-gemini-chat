@@ -266,7 +266,7 @@
     {#each messages as message, i (i)}
       {#if message.role === "user"}
         <div class="chat chat-end">
-          <div class="chat-bubble chat-bubble-info overflow-hidden table-fixed">
+          <div class="chat-bubble chat-bubble-primary overflow-hidden table-fixed">
             <p class="whitespace-pre-wrap break-words max-w-full text-white">{message.content}</p>
           </div>
         </div>
@@ -354,7 +354,7 @@
         class="mb-2 p-3 border border-base-content/20 rounded-md bg-base-100"
       >
         <label for="new-model-input" class="label pb-1 pt-0">
-          <span class="label-text text-xs">Enter Custom Model Name:</span>
+          <span class="label-text text-xs">Enter Google Model Name:</span>
         </label>
         <div class="flex items-center space-x-2">
           <input
